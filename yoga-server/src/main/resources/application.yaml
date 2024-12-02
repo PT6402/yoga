@@ -43,4 +43,4 @@ app:
     access_token_expired: 864000000 # milisecond
     reset_pass_token_expired: 864000000 # milisecond
     cookie_expired: 864000 # second
-    url_client: https://phattran.org
+    url_client: https://tanieshop.com
