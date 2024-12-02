@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: yoga-server
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 5MB
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  mail:
+    host: smtp.gmail.com
+    username: phgm6402@gmail.com
+    password: vvfe sozt wrle hqjo
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            auth: true
+  web:
+    resources:
+      static-locations: file:/upload
+upload:
+  path: /upload/images
+  pathInfoApp: /upload/info_app
+
+app:
+  auth:
+    token_secret: 6rMJtT+Q8cG3WgfzASYdBkpsW1IEK0E3AFhiTUBeMIy6MCgQpOvXgmFmqkKHLTu6
+    refresh_token_expired: 864000000 # milisecond
+    access_token_expired: 864000000 # milisecond
+    reset_pass_token_expired: 864000000 # milisecond
+    cookie_expired: 864000 # second
+    url_client: https://phattran.org

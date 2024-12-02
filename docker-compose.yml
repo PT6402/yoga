@@ -1,0 +1,53 @@
+version: "1.0"
+name: yoga-app
+services:
+  mysql:
+    build:
+      context: ./database
+    restart: always
+    container_name: database
+    image: mysql:8.0
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: Phattran.123
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - network-app
+  server:
+    image: springboot:3.4.0
+    restart: always
+    build:
+      context: ./yoga-server
+      dockerfile: Dockerfile
+    container_name: springboot
+    ports:
+      - "8080:8080" # host port:container port
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/YogaDB
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Phattran.123
+    depends_on:
+      - mysql
+    networks:
+      - network-app
+  proxy:
+    container_name: proxy
+    image: nginx:1.23.3
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./yoga-client/dist:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - network-app
+networks:
+  network-app:
+    name: springboot-mysql
+volumes:
+  mysql-data:
